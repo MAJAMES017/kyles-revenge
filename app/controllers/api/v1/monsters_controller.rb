@@ -1,5 +1,5 @@
-module api
-    module v1
+module Api
+    module V1
         class MonstersController < ApplicationController
 
             def index

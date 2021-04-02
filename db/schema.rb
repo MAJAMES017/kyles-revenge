@@ -33,5 +33,4 @@ ActiveRecord::Schema.define(version: 2021_04_02_063016) do
     t.index ["monster_id"], name: "index_reviews_on_monster_id"
   end
 
-  add_foreign_key "reviews", "monsters"
 end
