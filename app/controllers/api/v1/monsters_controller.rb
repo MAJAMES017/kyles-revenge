@@ -1,6 +1,7 @@
 module Api
     module V1
         class MonstersController < ApplicationController
+            protect_from_forgery with: :null_session
 
             def index
                 monsters = Monster.all
@@ -9,11 +10,11 @@ module Api
 
             def show
                 monster = Monster.find_by(slug: params[:slug])
-                ender json: MonsterSerializer.new(monster, options).serialized_json
+                render json: MonsterSerializer.new(monster, options).serialized_json
 
             end
             def create
-                monster = monster.new(monster_params)
+                monster = Monster.new(monster_params)
 
                 if monster.save
                     render json: MonsterSerializer.new(monster).serialized_json
@@ -23,7 +24,7 @@ module Api
             end
 
             def update
-                monster = monster.find_by(slug: params[:slug])
+                monster = Monster.find_by(slug: params[:slug])
 
                 if monster.update(monster_params)
                     render json: MonsterSerializer.new(monster, options).serialized_json
@@ -33,7 +34,7 @@ module Api
             end
 
             def destroy
-                monster = monster.find_by(slug: params[:slug])
+                monster = Monster.find_by(slug: params[:slug])
 
                 if monster.destroy
                     head :no_content

@@ -1,6 +1,8 @@
-module api
-    module v1
-        class ReviewssController < ApplicationController
+module Api
+    module V1
+        class ReviewsController < ApplicationController
+            protect_from_forgery with: :null_session
+
             def create
                 review = Review.new(review_params)
 
@@ -16,14 +18,14 @@ module api
                 if review.destroy
                     head :no_content
                 else
-                    render json { error: review.errors.messages }, status: 422
+                    render json: { error: review.errors.messages }, status: 422
                 end
             end
 
             private
 
             def review_params
-                params.require(:review.permit(:title, :description, :score, :monster_id))
+                params.require(:review).permit(:title, :description, :score, :monster_id)
             end
         
         end
